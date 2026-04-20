@@ -1,0 +1,18 @@
+# ============================
+# Data Preprocessing
+# ============================
+
+# Save PassengerId
+test_ids = test_df['PassengerId']
+
+# Drop unnecessary columns
+train_df = train_df.drop(['PassengerId', 'Name', 'Ticket', 'Cabin'], axis=1)
+test_df = test_df.drop(['PassengerId', 'Name', 'Ticket', 'Cabin'], axis=1)
+
+# Fill missing values (IMPROVED)
+for df in [train_df, test_df]:
+    df['Age'] = df['Age'].fillna(df['Age'].median())   # better than mean
+    df['Embarked'] = df['Embarked'].fillna(df['Embarked'].mode()[0])
+
+test_df['Fare'] = test_df['Fare'].fillna(test_df['Fare'].median())
+
